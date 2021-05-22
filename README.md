@@ -1,7 +1,5 @@
 # Learning-data-structures
 
----
-
 A simple repository that doesn't serve any purpose other than a way for me to track progress when learning data structures. Project is in Java, and uses JUnit5 to run some simple tests.
 
 | Data-structure            | Implementation         | Unit Test                    |
