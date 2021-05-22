@@ -2,6 +2,7 @@ package com.jsonmack.datastructures.node.doubly_linkedlist;
 
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author Jason MacKeigan
@@ -14,18 +15,41 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
 
     private int size;
 
-    public DoublyLinkedList(DoublyLinkedNode<T> head) {
+    private DoublyLinkedList(DoublyLinkedNode<T> head, DoublyLinkedNode<T> tail, int size) {
+        if (size < 0) {
+            throw new IllegalArgumentException("Size cannot be less than zero.");
+        }
         this.head = head;
-        this.tail = head;
-        this.size = 1;
+        this.tail = tail;
+        this.size = size;
+    }
+
+    public DoublyLinkedList() {
+        this(null, null, 0);
+    }
+
+    public DoublyLinkedList(DoublyLinkedNode<T> head) {
+        this(head, head, 1);
     }
 
     public void add(T value) {
         DoublyLinkedNode<T> node = new DoublyLinkedNode<>(value);
 
-        tail.setNext(node);
+        if (head == null) {
+            head = node;
+        } else if (size == 1) {
+            head.setNext(node);
+        }
+
+        if (tail != null) {
+            tail.setNext(node);
+        }
         tail = node;
         size++;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     @Override
@@ -54,6 +78,9 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
 
         @Override
         public DoublyLinkedNode<T> next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             DoublyLinkedNode<T> next = node;
 
             node = node.next();
@@ -69,6 +96,9 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
 
         @Override
         public DoublyLinkedNode<T> previous() {
+            if (!hasPrevious()) {
+                throw new NoSuchElementException();
+            }
             DoublyLinkedNode<T> previous = node;
 
             node = node.previous();
@@ -79,12 +109,12 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
 
         @Override
         public int nextIndex() {
-            return index + 1;
+            return Math.min(size, index + 1);
         }
 
         @Override
         public int previousIndex() {
-            return index - 1;
+            return Math.max(-1, index - 1);
         }
 
         @Override
