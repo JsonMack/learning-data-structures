@@ -34,10 +34,12 @@ public class SinglyLinkedNode<T> implements Node<T> {
         this.value = value;
     }
 
+    @Override
     public SinglyLinkedNode<T> next() {
         return next;
     }
 
+    @Override
     public T value() {
         return value;
     }

@@ -1,7 +1,4 @@
 package com.jsonmack.datastructures.node.singly_linkedlist;
-
-import com.jsonmack.datastructures.node.singly_linkedlist.SinglyLinkedList;
-import com.jsonmack.datastructures.node.singly_linkedlist.SinglyLinkedNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
