@@ -1,4 +1,4 @@
-package com.jsonmack.datastructures.singly_linkedlist;
+package com.jsonmack.datastructures.node.singly_linkedlist;
 
 import com.jsonmack.datastructures.node.singly_linkedlist.SinglyLinkedList;
 import com.jsonmack.datastructures.node.singly_linkedlist.SinglyLinkedNode;
