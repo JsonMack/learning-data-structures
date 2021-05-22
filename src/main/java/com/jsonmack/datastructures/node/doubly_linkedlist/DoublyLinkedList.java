@@ -1,6 +1,5 @@
 package com.jsonmack.datastructures.node.doubly_linkedlist;
 
-import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
@@ -70,7 +69,6 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
             this.size = size;
         }
 
-
         @Override
         public boolean hasNext() {
             return index < size;
@@ -85,7 +83,6 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
 
             node = node.next();
             index++;
-
             return next;
         }
 
@@ -103,7 +100,6 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
 
             node = node.previous();
             index--;
-
             return previous;
         }
 
@@ -130,7 +126,6 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
         public void add(DoublyLinkedNode<T> tDoublyLinkedNode) {
             throw new UnsupportedOperationException();
         }
-
 
     }
 }

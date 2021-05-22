@@ -50,6 +50,28 @@ class DoublyLinkedListTest {
         Assertions.assertThrows(NoSuchElementException.class, () -> list.iterator().previous());
     }
 
+    @Test
+    public void assertIteratorNextFailedIfSizeOne() {
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>(new DoublyLinkedNode<>(1));
+
+        Assertions.assertThrows(NoSuchElementException.class, () -> list.iterator().next());
+    }
+
+    @Test
+    public void assertIteratorPrevious() {
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>();
+
+        list.add(1);
+        list.add(2);
+
+        ListIterator<DoublyLinkedNode<Integer>> iterator = list.iterator();
+
+        Assertions.assertTrue(iterator.hasNext());
+        Assertions.assertNotNull(iterator.next());
+        Assertions.assertTrue(iterator.hasPrevious());
+        Assertions.assertNotNull(iterator.previous());
+    }
+
     private DoublyLinkedList<Integer> createFromRange(int fromInclusive, int toExclusive) {
         DoublyLinkedList<Integer> doublyLinkedList = new DoublyLinkedList<>();
 

@@ -62,8 +62,8 @@ public class SinglyLinkedList<T> implements Iterable<SinglyLinkedNode<T>> {
 
         @Override
         public SinglyLinkedNode<T> next() {
-            if (current == null) {
-                throw new NoSuchElementException("Could not find next element, something went wrong.");
+            if (!hasNext()) {
+                throw new NoSuchElementException();
             }
             SinglyLinkedNode<T> next = current;
 
