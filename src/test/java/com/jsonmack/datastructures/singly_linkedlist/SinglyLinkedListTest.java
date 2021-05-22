@@ -1,5 +1,7 @@
 package com.jsonmack.datastructures.singly_linkedlist;
 
+import com.jsonmack.datastructures.node.singly_linkedlist.SinglyLinkedList;
+import com.jsonmack.datastructures.node.singly_linkedlist.SinglyLinkedNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -7,11 +9,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-class NodeTest {
+class SinglyLinkedListTest {
 
+    //TODO break this up into multiple tests that are not dependent on each other
+    //TODO think critically about edge cases
     @Test
     public void assertNode() {
-        Node<Integer> head = new Node<>(0);
+        SinglyLinkedNode<Integer> head = new SinglyLinkedNode<>(0);
 
         SinglyLinkedList<Integer> singlyLinkedList = new SinglyLinkedList<>(head);
 
@@ -23,10 +27,10 @@ class NodeTest {
         expected.forEach(singlyLinkedList::add);
 
         Assertions.assertEquals(head, singlyLinkedList.getHead());
-        Assertions.assertEquals(0, head.getValue());
+        Assertions.assertEquals(0, head.value());
         Assertions.assertEquals(10, singlyLinkedList.getSize());
-        Assertions.assertNull(singlyLinkedList.getTail().getNext());
-        Assertions.assertEquals(9, singlyLinkedList.getTail().getValue());
+        Assertions.assertNull(singlyLinkedList.getTail().next());
+        Assertions.assertEquals(9, singlyLinkedList.getTail().value());
     }
 
 }
