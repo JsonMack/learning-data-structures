@@ -1,6 +1,4 @@
-package com.jsonmack.datastructures.node;
-
-import java.text.Bidi;
+package com.jsonmack.datastructures.doubly_linkedlist;
 
 /**
  * @author Jason MacKeigan

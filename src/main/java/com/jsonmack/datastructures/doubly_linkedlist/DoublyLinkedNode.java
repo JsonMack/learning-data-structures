@@ -1,6 +1,4 @@
-package com.jsonmack.datastructures.node.doubly_linkedlist;
-
-import com.jsonmack.datastructures.node.BidirectionalNode;
+package com.jsonmack.datastructures.doubly_linkedlist;
 
 /**
  * @author Jason MacKeigan

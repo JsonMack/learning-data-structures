@@ -1,4 +1,4 @@
-package com.jsonmack.datastructures.node;
+package com.jsonmack.datastructures.doubly_linkedlist;
 
 /**
  * @author Jason MacKeigan

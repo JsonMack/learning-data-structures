@@ -1,4 +1,4 @@
-package com.jsonmack.datastructures.node.doubly_linkedlist;
+package com.jsonmack.datastructures.doubly_linkedlist;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
