@@ -1,5 +1,7 @@
-package com.jsonmack.datastructures.tree.binary_tree;
+package com.jsonmack.datastructures.binary_tree;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -8,9 +10,10 @@ import java.util.function.Consumer;
  * If the new nodes value is lower than the current node, go to the left child
  * If the new nodes value is greater than the current node, go to the right child
  * If the current node is null, then we're at a 'leaf node', so we insert the new node in that position
+ *
  * @author Jason MacKeigan
  */
-public class BinaryTree<T> {
+public class BinaryTree<T> implements Iterable<T> {
 
     private BinaryTreeNode<T> root;
 
@@ -19,23 +22,13 @@ public class BinaryTree<T> {
             root = new BinaryTreeNode<>(null, value);
             return;
         }
-        addIfAbsent(value, root);
+        insert(value, root);
     }
 
-    public void traverse(Consumer<T> action) {
-
-    }
-
-    /**
-     * @param value
-     *            the value to be added, if it does not exist.
-     * @param node
-     *            the node to start from when searching for the same, or a new leaf node.
-     * @return the next leaf node, or an exception is thrown if one doesn't exist. If one cannot be found, then we assume that
-     *         the size of this tree is 2^32-1 which is unrealistic, right? Might need to check for this. Learn about
-     *         height/size of tree?
-     */
-    private void addIfAbsent(T value, BinaryTreeNode<T> node) {
+    private void insert(T value, BinaryTreeNode<T> node) {
+        if (node == null) {
+            throw new IllegalArgumentException("Node cannot be null.");
+        }
         BinaryTreeNode<T> left = node.getLeft();
 
         BinaryTreeNode<T> right = node.getRight();
@@ -49,7 +42,7 @@ public class BinaryTree<T> {
         }
         if (valueHashCode < nodeHashCode) {
             if (left != null) {
-                addIfAbsent(value, left);
+                insert(value, left);
                 return;
             }
             BinaryTreeNode<T> newNode = new BinaryTreeNode<>(node, value);
@@ -57,7 +50,7 @@ public class BinaryTree<T> {
             node.setLeft(newNode);
         } else {
             if (right != null) {
-                addIfAbsent(value, right);
+                insert(value, right);
                 return;
             }
             BinaryTreeNode<T> newNode = new BinaryTreeNode<>(node, value);
@@ -67,4 +60,35 @@ public class BinaryTree<T> {
         throw new IllegalStateException("Unable to add to tree.");
     }
 
+    /**
+     * Returns an iterator over elements of type {@code T}.
+     *
+     * @return an Iterator.
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return new BinaryTreeNodeIterator<T>(root);
+    }
+
+    private static final class BinaryTreeNodeIterator<T> implements Iterator<T> {
+
+        private final BinaryTreeNode<T> root;
+
+        private BinaryTreeNode<T> current;
+
+        private BinaryTreeNodeIterator(BinaryTreeNode<T> root) {
+            this.root = root;
+            this.current = root;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public T next() {
+            return null;
+        }
+    }
 }

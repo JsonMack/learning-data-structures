@@ -1,4 +1,4 @@
-package com.jsonmack.datastructures.tree.binary_tree;
+package com.jsonmack.datastructures.binary_tree;
 
 /**
  * @author Jason MacKeigan
