@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  *
  * @author Jason MacKeigan
  */
-public class BinaryTree<T> implements Iterable<T> {
+public class BinaryTree<T> {
 
     private BinaryTreeNode<T> root;
 
@@ -58,37 +58,5 @@ public class BinaryTree<T> implements Iterable<T> {
             node.setRight(newNode);
         }
         throw new IllegalStateException("Unable to add to tree.");
-    }
-
-    /**
-     * Returns an iterator over elements of type {@code T}.
-     *
-     * @return an Iterator.
-     */
-    @Override
-    public Iterator<T> iterator() {
-        return new BinaryTreeNodeIterator<T>(root);
-    }
-
-    private static final class BinaryTreeNodeIterator<T> implements Iterator<T> {
-
-        private final BinaryTreeNode<T> root;
-
-        private BinaryTreeNode<T> current;
-
-        private BinaryTreeNodeIterator(BinaryTreeNode<T> root) {
-            this.root = root;
-            this.current = root;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public T next() {
-            return null;
-        }
     }
 }
