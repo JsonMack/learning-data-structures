@@ -1,8 +1,6 @@
 package com.jsonmack.datastructures.binary_tree;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.function.Consumer;
+import java.util.*;
 
 /**
  * The rules are as follows;
@@ -13,19 +11,29 @@ import java.util.function.Consumer;
  *
  * @author Jason MacKeigan
  */
-public class BinaryTree<T> {
+public class BinaryTree<T> implements Iterable<T> {
 
-    private BinaryTreeNode<T> root;
+    private final BinaryTreeNode<T> root;
+
+    public BinaryTree(T value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Value is null.");
+        }
+        this.root = new BinaryTreeNode<T>(null, value);
+    }
 
     public void add(T value) {
-        if (root == null) {
-            root = new BinaryTreeNode<>(null, value);
-            return;
-        }
         insert(value, root);
     }
 
-    private void insert(T value, BinaryTreeNode<T> node) {
+    /**
+     * Inserts a new node with the given value at the next possible leaf from root. This
+     * uses the {@link Object#hashCode()} function to determine a OH NO
+     *
+     * @param value
+     * @param node
+     */
+    private void insertFrom(T value, BinaryTreeNode<T> node) {
         if (node == null) {
             throw new IllegalArgumentException("Node cannot be null.");
         }
@@ -57,6 +65,57 @@ public class BinaryTree<T> {
 
             node.setRight(newNode);
         }
-        throw new IllegalStateException("Unable to add to tree.");
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new BinaryTreeIterator<>(root);
+    }
+
+    /**
+     * Iterates over the binary tree, starting at the root node. This maintains a queue with
+     * FIFO ordering. If the node has a left, that value is added first, then the value of the
+     * right node. I believe this is referred to as breadth-first traversal or level order traversal,
+     * don't quote me though, uh oh.
+     *
+     * @param <T>
+     *      the type of element that we will be iterating over.
+     */
+    private static final class BinaryTreeIterator<T> implements Iterator<T> {
+
+        private final Queue<BinaryTreeNode<T>> nodes;
+
+        public BinaryTreeIterator(BinaryTreeNode<T> node) {
+            this.nodes = new ArrayDeque<>(Collections.singleton(node));
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !nodes.isEmpty();
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            BinaryTreeNode<T> next = nodes.poll();
+
+            if (next == null) {
+                throw new NoSuchElementException();
+            }
+            BinaryTreeNode<T> left = next.left;
+
+            if (left != null) {
+                nodes.add(left);
+            }
+            BinaryTreeNode<T> right = next.right;
+
+            if (right != null) {
+                nodes.add(right);
+            }
+            return next.getValue();
+        }
+
     }
 }

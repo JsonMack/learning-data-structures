@@ -22,15 +22,11 @@ public class BinaryTreeNode<T> {
 
     /**
      * The left child, which is 'less' than the right.
-     *
-     * @return the left child, or null if leaf.
      */
     BinaryTreeNode<T> left;
 
     /**
      * The right child, which is 'greater' than the left.
-     *
-     * @return the right child, or null if leaf.
      */
     BinaryTreeNode<T> right;
 
