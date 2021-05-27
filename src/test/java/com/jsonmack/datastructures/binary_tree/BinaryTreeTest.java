@@ -23,8 +23,6 @@ class BinaryTreeTest {
         BinaryTree<Integer> tree = new BinaryTree<>(0);
 
         Assertions.assertThrows(BinaryTreeNodeExistsException.class, () -> tree.add(0));
-
-
     }
 
     @Test
