@@ -23,23 +23,23 @@ public class BinaryTreeNode<T> {
     /**
      * The left child, which is 'less' than the right.
      */
-    BinaryTreeNode<T> left;
+    private BinaryTreeNode<T> left;
 
     /**
      * The right child, which is 'greater' than the left.
      */
-    BinaryTreeNode<T> right;
+    private BinaryTreeNode<T> right;
 
     public BinaryTreeNode(BinaryTreeNode<T> parent, T value) {
         this.parent = parent;
         this.value = value;
     }
 
-    public void setLeft(BinaryTreeNode<T> left) {
+    void setLeft(BinaryTreeNode<T> left) {
         this.left = left;
     }
 
-    public void setRight(BinaryTreeNode<T> right) {
+    void setRight(BinaryTreeNode<T> right) {
         this.right = right;
     }
 

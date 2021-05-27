@@ -23,25 +23,24 @@ public class BinaryTree<T> implements Iterable<T> {
     }
 
     public void add(T value) {
-        insert(value, root);
+        insertFrom(value, root);
     }
 
     /**
      * Inserts a new node with the given value at the next possible leaf from root. This
-     * uses the {@link Object#hashCode()} function to determine a OH NO
+     * uses the {@link Object#hashCode()} function and collisions are disregarded as the
+     * objects being equal.
      *
      * @param value
+     *            TODO
      * @param node
+     *            TODO
      */
     private void insertFrom(T value, BinaryTreeNode<T> node) {
         if (node == null) {
             throw new IllegalArgumentException("Node cannot be null.");
         }
-        BinaryTreeNode<T> left = node.getLeft();
-
-        BinaryTreeNode<T> right = node.getRight();
-
-        int nodeHashCode = node.hashCode();
+        int nodeHashCode = node.getValue().hashCode();
 
         int valueHashCode = value.hashCode();
 
@@ -49,21 +48,21 @@ public class BinaryTree<T> implements Iterable<T> {
             throw new BinaryTreeNodeExistsException();
         }
         if (valueHashCode < nodeHashCode) {
+            BinaryTreeNode<T> left = node.getLeft();
+
             if (left != null) {
-                insert(value, left);
+                insertFrom(value, left);
                 return;
             }
-            BinaryTreeNode<T> newNode = new BinaryTreeNode<>(node, value);
-
-            node.setLeft(newNode);
+            node.setLeft(new BinaryTreeNode<>(node, value));
         } else {
+            BinaryTreeNode<T> right = node.getRight();
+
             if (right != null) {
-                insert(value, right);
+                insertFrom(value, right);
                 return;
             }
-            BinaryTreeNode<T> newNode = new BinaryTreeNode<>(node, value);
-
-            node.setRight(newNode);
+            node.setRight(new BinaryTreeNode<>(node, value));
         }
     }
 
@@ -104,12 +103,12 @@ public class BinaryTree<T> implements Iterable<T> {
             if (next == null) {
                 throw new NoSuchElementException();
             }
-            BinaryTreeNode<T> left = next.left;
+            BinaryTreeNode<T> left = next.getLeft();
 
             if (left != null) {
                 nodes.add(left);
             }
-            BinaryTreeNode<T> right = next.right;
+            BinaryTreeNode<T> right = next.getRight();
 
             if (right != null) {
                 nodes.add(right);

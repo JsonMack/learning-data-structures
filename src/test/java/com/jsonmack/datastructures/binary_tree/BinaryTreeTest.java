@@ -15,18 +15,27 @@ class BinaryTreeTest {
 
     @Test
     public void assertNullRootFailed() {
-        Assertions.assertThrows(IllegalArgumentException.class, new BinaryTree<Integer>());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new BinaryTree<>(null));
+    }
+
+    @Test
+    public void assertDistinct() {
+        BinaryTree<Integer> tree = new BinaryTree<>(0);
+
+        Assertions.assertThrows(BinaryTreeNodeExistsException.class, () -> tree.add(0));
+
+
     }
 
     @Test
     public void assertIteratorOrder() {
-        BinaryTree<Integer> tree = new BinaryTree<>();
+        BinaryTree<Integer> tree = new BinaryTree<>(2);
 
         Queue<Integer> expectedOrder = IntStream.of(2, 1, 4, 5, 7)
                 .boxed()
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
-        IntStream.of(2, 1, 4, 5, 7).forEach(tree::add);
+        IntStream.of(1, 4, 5, 7).forEach(tree::add);
 
         for (Integer integer : tree) {
             Assertions.assertEquals(expectedOrder.poll(), integer);
