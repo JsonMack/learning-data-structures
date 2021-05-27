@@ -10,8 +10,6 @@ public class BinaryTreeNode<T> {
 
     /**
      * The parent of this node, if any. A node without a parent is the parent, or root, node.
-     *
-     * @return the parent or root node, or null if root node.
      */
     private final BinaryTreeNode<T> parent;
 
@@ -30,19 +28,48 @@ public class BinaryTreeNode<T> {
      */
     private BinaryTreeNode<T> right;
 
+    /**
+     * Creates a new BinaryTreeNode object with a given parent and value. The parent
+     * is either the root node, null if it is the parent, or some nth child of root.
+     *
+     * @param parent
+     *            null for root, root, or child of root.
+     * @param value
+     *            the value associated with this node. This cannot be null.
+     */
     public BinaryTreeNode(BinaryTreeNode<T> parent, T value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Value cannot be null.");
+        }
         this.parent = parent;
         this.value = value;
     }
 
+    /**
+     * Sets the left node for this node equal to the given parameter.
+     *
+     * @param left
+     *            the value to be assigned to the left node.
+     */
     void setLeft(BinaryTreeNode<T> left) {
         this.left = left;
     }
 
+    /**
+     * Sets the right node for this node equal to the given parameter.
+     *
+     * @param right
+     *            the value to be assigned to the right node.
+     */
     void setRight(BinaryTreeNode<T> right) {
         this.right = right;
     }
 
+    /**
+     * The parent node, if any. This can be null if this is the root node.
+     *
+     * @return the parent node.
+     */
     public BinaryTreeNode<T> getParent() {
         return parent;
     }

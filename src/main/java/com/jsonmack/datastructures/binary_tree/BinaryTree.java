@@ -16,9 +16,6 @@ public class BinaryTree<T> implements Iterable<T> {
     private final BinaryTreeNode<T> root;
 
     public BinaryTree(T value) {
-        if (value == null) {
-            throw new IllegalArgumentException("Value is null.");
-        }
         this.root = new BinaryTreeNode<T>(null, value);
     }
 
