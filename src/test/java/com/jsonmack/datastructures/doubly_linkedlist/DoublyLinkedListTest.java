@@ -51,10 +51,10 @@ class DoublyLinkedListTest {
     }
 
     @Test
-    public void assertIteratorNextFailedIfSizeOne() {
+    public void assertIteratorSizeOneNextValid() {
         DoublyLinkedList<Integer> list = new DoublyLinkedList<>(new DoublyLinkedNode<>(1));
 
-        Assertions.assertThrows(NoSuchElementException.class, () -> list.iterator().next());
+        Assertions.assertEquals(1, list.iterator().next().value());
     }
 
     @Test
