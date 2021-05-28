@@ -40,4 +40,30 @@ class BinaryTreeTest {
         }
     }
 
+    @Test
+    public void assertContainsExpected() {
+        BinaryTree<Integer> tree = new BinaryTree<>(1);
+
+        Queue<Integer> expectedOrder = IntStream.range(2, 5)
+                .boxed()
+                .collect(Collectors.toCollection(ArrayDeque::new));
+
+        IntStream.range(2, 5)
+                .forEach(tree::add);
+
+        for (int expected : expectedOrder) {
+            Assertions.assertTrue(tree.contains(expected));
+        }
+    }
+
+    @Test
+    public void assertDoesNotContainRoot() {
+        Assertions.assertFalse(new BinaryTree<>(1).contains(2));
+    }
+
+    @Test
+    public void assertDoesContainValueAtRoot() {
+        Assertions.assertTrue(new BinaryTree<>(0).contains(0));
+    }
+
 }
