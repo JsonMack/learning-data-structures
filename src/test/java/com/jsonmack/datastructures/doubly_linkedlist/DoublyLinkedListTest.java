@@ -23,16 +23,16 @@ class DoublyLinkedListTest {
     public void assertIterator() {
         DoublyLinkedList<Integer> doublyLinkedList = createFromRange(0, 4);
 
-        ListIterator<DoublyLinkedNode<Integer>> iterator = doublyLinkedList.iterator();
+        ListIterator<Integer> iterator = doublyLinkedList.iterator();
 
         Queue<Integer> expected = IntStream.range(0, 4)
                 .boxed()
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
         while (iterator.hasNext()) {
-            DoublyLinkedNode<Integer> node = iterator.next();
+            Integer node = iterator.next();
 
-            Assertions.assertEquals(expected.poll(), node.value());
+            Assertions.assertEquals(expected.poll(), node);
         }
     }
 
@@ -52,9 +52,9 @@ class DoublyLinkedListTest {
 
     @Test
     public void assertIteratorSizeOneNextValid() {
-        DoublyLinkedList<Integer> list = new DoublyLinkedList<>(new DoublyLinkedNode<>(1));
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>(1);
 
-        Assertions.assertEquals(1, list.iterator().next().value());
+        Assertions.assertEquals(1, list.iterator().next());
     }
 
     @Test
@@ -64,7 +64,7 @@ class DoublyLinkedListTest {
         list.add(1);
         list.add(2);
 
-        ListIterator<DoublyLinkedNode<Integer>> iterator = list.iterator();
+        ListIterator<Integer> iterator = list.iterator();
 
         Assertions.assertTrue(iterator.hasNext());
         Assertions.assertNotNull(iterator.next());

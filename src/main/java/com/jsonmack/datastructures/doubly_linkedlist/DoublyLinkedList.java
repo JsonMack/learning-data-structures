@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 /**
  * @author Jason MacKeigan
  */
-public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
+public class DoublyLinkedList<T> implements Iterable<T> {
 
     private DoublyLinkedNode<T> head;
 
@@ -23,12 +23,16 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
         this.size = size;
     }
 
+    private DoublyLinkedList(DoublyLinkedNode<T> node) {
+        this(node, node, 1);
+    }
+
     public DoublyLinkedList() {
         this(null, null, 0);
     }
 
-    public DoublyLinkedList(DoublyLinkedNode<T> head) {
-        this(head, head, 1);
+    public DoublyLinkedList(T value) {
+        this(new DoublyLinkedNode<>(value));
     }
 
     public void add(T value) {
@@ -52,11 +56,11 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
     }
 
     @Override
-    public ListIterator<DoublyLinkedNode<T>> iterator() {
+    public ListIterator<T> iterator() {
         return new DoublyLinkedListIterator<>(head, size);
     }
 
-    private static final class DoublyLinkedListIterator<T> implements ListIterator<DoublyLinkedNode<T>> {
+    private static final class DoublyLinkedListIterator<T> implements ListIterator<T> {
 
         private final int size;
 
@@ -75,7 +79,7 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
         }
 
         @Override
-        public DoublyLinkedNode<T> next() {
+        public T next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
@@ -83,7 +87,7 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
 
             node = node.next();
             index++;
-            return next;
+            return next.value();
         }
 
         @Override
@@ -92,7 +96,7 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
         }
 
         @Override
-        public DoublyLinkedNode<T> previous() {
+        public T previous() {
             if (!hasPrevious()) {
                 throw new NoSuchElementException();
             }
@@ -100,7 +104,7 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
 
             node = node.previous();
             index--;
-            return previous;
+            return previous.value();
         }
 
         @Override
@@ -118,12 +122,12 @@ public class DoublyLinkedList<T> implements Iterable<DoublyLinkedNode<T>> {
             throw new UnsupportedOperationException();
         }
         @Override
-        public void set(DoublyLinkedNode<T> tDoublyLinkedNode) {
+        public void set(T tDoublyLinkedNode) {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public void add(DoublyLinkedNode<T> tDoublyLinkedNode) {
+        public void add(T tDoublyLinkedNode) {
             throw new UnsupportedOperationException();
         }
 
