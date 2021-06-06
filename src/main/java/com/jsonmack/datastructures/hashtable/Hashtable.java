@@ -1,6 +1,6 @@
 package com.jsonmack.datastructures.hashtable;
 
-import com.jsonmack.datastructures.FixedSizeList;
+import com.jsonmack.datastructures.support.FixedSizeList;
 import com.jsonmack.datastructures.doubly_linkedlist.DoublyLinkedList;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.jsonmack.datastructures;
+package com.jsonmack.datastructures.support;
 
 import java.util.*;
 
