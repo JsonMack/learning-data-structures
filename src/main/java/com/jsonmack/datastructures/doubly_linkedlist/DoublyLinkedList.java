@@ -174,9 +174,8 @@ public class DoublyLinkedList<T> implements Iterable<T> {
 
             DoublyLinkedNode<T> next = remove.next();
 
-            if (previous != null) {
-                previous.
-            }
+            //TODO add support for in-place removal of an element, cause why not
+            throw new UnsupportedOperationException();
         }
 
         @Override
