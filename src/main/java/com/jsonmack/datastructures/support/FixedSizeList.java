@@ -12,6 +12,9 @@ public class FixedSizeList<E> implements List<E> {
     private final int size;
 
     public FixedSizeList(int size) {
+        if (size < 0) {
+            throw new IllegalArgumentException("Size cannot be negative.");
+        }
         this.elements = new ArrayList<>(size);
         this.size = size;
 

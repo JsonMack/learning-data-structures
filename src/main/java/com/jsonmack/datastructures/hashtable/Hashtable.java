@@ -3,6 +3,7 @@ package com.jsonmack.datastructures.hashtable;
 import com.jsonmack.datastructures.support.FixedSizeList;
 import com.jsonmack.datastructures.doubly_linkedlist.DoublyLinkedList;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -45,7 +46,6 @@ public class Hashtable<K, V> {
      * @param bucketSize
      *            the amount of buckets that should be available by default.
      */
-    @SuppressWarnings("unchecked")
     public Hashtable(int bucketSize) {
         this.bucketSize = bucketSize;
         this.buckets = new FixedSizeList<>(bucketSize);
@@ -55,7 +55,24 @@ public class Hashtable<K, V> {
         this(16);
     }
 
-    public boolean put(K key, V value) {
+    /**
+     * Inserts a new key and the associated value, or updates the value if the key exists. If the key exists,
+     * the value is updated. If the key and value are the same, i.e equals, then no update is made.
+     *
+     * @param key
+     *            the key that is unique and what is associated with the value.
+     * @param value
+     *            the value that is not unique and associated with the key.
+     * @throws IllegalArgumentException
+     *            thrown if the key or value is null.
+     * @return The value returned is either the new value, or the existing value if the values are equal.
+     *
+     */
+    //TODO add remove functionality to DoublyLinkedList ListIterator implementation so that
+    //     we can ensure that HashtableEntry can remain immutable, allowing the existing value
+    //     to be updated by replacing the entire entry instead of mutating it. This is more expensive
+    //     with memory and performance, but the tradeoff is immutability so i'll take that loss.
+    public V put(K key, V value) {
         if (key == null) {
             throw new IllegalArgumentException("Key is null.");
         }
@@ -69,22 +86,43 @@ public class Hashtable<K, V> {
         }
         DoublyLinkedList<HashtableEntry<K, V>> bucket = buckets.get(bucketIndex);
 
-        HashtableEntry<K, V> entry = new HashtableEntry<>(key, value);
-
         if (bucket == null) {
-            bucket = new DoublyLinkedList<>(entry);
+            bucket = new DoublyLinkedList<>(new HashtableEntry<>(key, value));
             buckets.set(bucketIndex, bucket);
-            return true;
+            return value;
+        }
+        Iterator<HashtableEntry<K, V>> iterator = bucket.iterator();
+
+        while (iterator.hasNext()) {
+            HashtableEntry<K, V> entry = iterator.next();
+
+            if (!entry.getKey().equals(key)) {
+                continue;
+            }
+
         }
         for (HashtableEntry<K, V> existing : bucket) {
-            if (existing.equals(entry)) {
-                return false;
+            if (!existing.getKey().equals(key)) {
+                continue;
             }
+            if (existing.getValue().equals(value)) {
+                return value;
+            }
+
         }
-        bucket.add(entry);
+        bucket.add();
         return true;
     }
 
+    /**
+     * Retrieves the value for the given key, if one exists. If one does not exist, null is returned.
+     *
+     * @param key
+     *            the unique key for a given value.
+     * @throws IllegalArgumentException
+     *            thrown if the key passed is null.
+     * @return the value for the key, or null if the key does not exist.
+     */
     public V get(K key) {
         if (key == null) {
             throw new IllegalArgumentException("Key is null");

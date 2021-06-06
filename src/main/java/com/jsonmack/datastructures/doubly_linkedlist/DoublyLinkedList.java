@@ -35,6 +35,14 @@ public class DoublyLinkedList<T> implements Iterable<T> {
         this(new DoublyLinkedNode<>(value));
     }
 
+    /**
+     * Attempts to add a node to the tail end of the list. If the head is null, this value becomes
+     * the head.
+     *
+     * @param value
+     *            the value we want to add to the linked list. Duplicates can exists. This method should
+     *            never fail. I won't say 'wont'. Oh.
+     */
     public void add(T value) {
         DoublyLinkedNode<T> node = new DoublyLinkedNode<>(value);
 
@@ -49,6 +57,47 @@ public class DoublyLinkedList<T> implements Iterable<T> {
         }
         tail = node;
         size++;
+    }
+
+    /**
+     * Determines if the value can be found anywhere in the list, starting at the head
+     * node.
+     *
+     * @param value
+     *            the value we're determining exists or not.
+     * @return true if the value exists, otherwise false.
+     */
+    public boolean contains(T value) {
+        return find(head, value) != null;
+    }
+
+    /**
+     * Compares the current nodes value against the parameter, and seeks to the next
+     * node, if not null, comparing values again. This continues until next is null.
+     *
+     * @param current
+     *            the current node we're comparing the value against. this may be null.
+     * @param value
+     *            the value we're seeking for, to check if it exists.
+     * @return the node if it can be found, or null if it cannot.
+     */
+    private DoublyLinkedNode<T> find(DoublyLinkedNode<T> current, T value) {
+        if (current == null) {
+            return null;
+        }
+        DoublyLinkedNode<T> next = current.next();
+
+        if (next == null) {
+            return null;
+        }
+        if (next.value() == value) {
+            return current;
+        }
+        return find(current.next(), value);
+    }
+
+    public void remove(T value) {
+
     }
 
     public int getSize() {
@@ -119,8 +168,17 @@ public class DoublyLinkedList<T> implements Iterable<T> {
 
         @Override
         public void remove() {
-            throw new UnsupportedOperationException();
+            DoublyLinkedNode<T> remove = node;
+
+            DoublyLinkedNode<T> previous = remove.previous();
+
+            DoublyLinkedNode<T> next = remove.next();
+
+            if (previous != null) {
+                previous.
+            }
         }
+
         @Override
         public void set(T tDoublyLinkedNode) {
             throw new UnsupportedOperationException();
