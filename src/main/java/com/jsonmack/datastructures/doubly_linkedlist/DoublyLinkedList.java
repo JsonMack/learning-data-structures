@@ -60,20 +60,30 @@ public class DoublyLinkedList<T> implements Iterable<T> {
     }
 
     /**
-     * Removes the value from the linked list by stiching together the previous node, if any,
+     * Removes the value from the linked list by stitching together the previous node, if any,
      * and the next node, if any. This effectively seek for the node, and rips it out of the
      * doubly linked list.
      *
      * @param value
      *            the value to remove, which may not exist.
-     * @return true if the value can be removed, or false if the value doesn't exist.
      */
-    public boolean remove(T value) {
+    public void remove(T value) {
         DoublyLinkedNode<T> node = find(head, value);
 
         if (node == null) {
-            return false;
+            return;
         }
+        removeNode(node);
+    }
+
+    /**
+     * Removes the node from the linked list. This assumes that the node is not null and is
+     * intended to only be used internally when this is the case since a node can be null.
+     *
+     * @param node
+     *            the node to remove.
+     */
+    void removeNode(DoublyLinkedNode<T> node) {
         DoublyLinkedNode<T> previous = node.previous();
 
         DoublyLinkedNode<T> next = node.next();
@@ -84,7 +94,6 @@ public class DoublyLinkedList<T> implements Iterable<T> {
         if (next != null) {
             next.setPrevious(previous);
         }
-        return true;
     }
 
     /**
@@ -125,10 +134,10 @@ public class DoublyLinkedList<T> implements Iterable<T> {
 
     @Override
     public ListIterator<T> iterator() {
-        return new DoublyLinkedListIterator<>(head, size);
+        return new DoublyLinkedListIterator(head, size);
     }
 
-    private static final class DoublyLinkedListIterator<T> implements ListIterator<T> {
+    private final class DoublyLinkedListIterator implements ListIterator<T> {
 
         private final int size;
 
@@ -187,14 +196,12 @@ public class DoublyLinkedList<T> implements Iterable<T> {
 
         @Override
         public void remove() {
-            DoublyLinkedNode<T> remove = node;
-
-            DoublyLinkedNode<T> previous = remove.previous();
-
-            DoublyLinkedNode<T> next = remove.next();
-
-            //TODO add support for in-place removal of an element, cause why not
-            throw new UnsupportedOperationException();
+            if (node == null) {
+                throw new NoSuchElementException();
+            }
+            index--;
+            removeNode(node);
+            //TODO properly implement remove
         }
 
         @Override
