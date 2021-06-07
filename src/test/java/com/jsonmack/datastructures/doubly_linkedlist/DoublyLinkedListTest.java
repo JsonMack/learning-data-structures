@@ -104,6 +104,7 @@ class DoublyLinkedListTest {
         Assertions.assertTrue(list.contains(0));
         Assertions.assertFalse(list.contains(1));
         Assertions.assertTrue(list.contains(2));
+        Assertions.assertEquals(2, list.getSize());
     }
 
     private DoublyLinkedList<Integer> createFromRange(int fromInclusive, int toExclusive) {

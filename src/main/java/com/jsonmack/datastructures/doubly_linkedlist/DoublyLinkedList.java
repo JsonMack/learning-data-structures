@@ -108,6 +108,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
                 head.setNext(null);
             }
         }
+        size--;
     }
 
     /**
