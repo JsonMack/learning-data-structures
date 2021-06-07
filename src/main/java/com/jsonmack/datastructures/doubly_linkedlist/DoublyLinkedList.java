@@ -53,6 +53,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
         }
 
         if (tail != null) {
+            node.setPrevious(tail);
             tail.setNext(node);
         }
         tail = node;
@@ -66,14 +67,17 @@ public class DoublyLinkedList<T> implements Iterable<T> {
      *
      * @param value
      *            the value to remove, which may not exist.
+     * @return true if the value can be removed, meaning it exists. Otherwise, false if it does
+     *         not exist and cannot be removed.
      */
-    public void remove(T value) {
+    public boolean remove(T value) {
         DoublyLinkedNode<T> node = find(head, value);
 
         if (node == null) {
-            return;
+            return false;
         }
         removeNode(node);
+        return true;
     }
 
     /**
@@ -83,7 +87,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
      * @param node
      *            the node to remove.
      */
-    void removeNode(DoublyLinkedNode<T> node) {
+    private void removeNode(DoublyLinkedNode<T> node) {
         DoublyLinkedNode<T> previous = node.previous();
 
         DoublyLinkedNode<T> next = node.next();
@@ -93,6 +97,16 @@ public class DoublyLinkedList<T> implements Iterable<T> {
         }
         if (next != null) {
             next.setPrevious(previous);
+        }
+        if (node == head) {
+            head = null;
+            tail = null;
+        } else if (node == tail) {
+            tail = null;
+
+            if (head != null && size == 1) {
+                head.setNext(null);
+            }
         }
     }
 

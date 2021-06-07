@@ -92,6 +92,20 @@ class DoublyLinkedListTest {
         Assertions.assertFalse(new DoublyLinkedList<>().remove(1));
     }
 
+    @Test
+    public void assertRemoveMiddleNode() {
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>(0);
+
+        list.add(1);
+        list.add(2);
+
+        list.remove(1);
+
+        Assertions.assertTrue(list.contains(0));
+        Assertions.assertFalse(list.contains(1));
+        Assertions.assertTrue(list.contains(2));
+    }
+
     private DoublyLinkedList<Integer> createFromRange(int fromInclusive, int toExclusive) {
         DoublyLinkedList<Integer> doublyLinkedList = new DoublyLinkedList<>();
 
