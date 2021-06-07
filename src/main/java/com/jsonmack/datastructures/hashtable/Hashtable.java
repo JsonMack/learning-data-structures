@@ -72,7 +72,7 @@ public class Hashtable<K, V> {
     //     we can ensure that HashtableEntry can remain immutable, allowing the existing value
     //     to be updated by replacing the entire entry instead of mutating it. This is more expensive
     //     with memory and performance, but the tradeoff is immutability so i'll take that loss.
-    public V put(K key, V value) {
+    public boolean put(K key, V value) {
         if (key == null) {
             throw new IllegalArgumentException("Key is null.");
         }
@@ -89,7 +89,7 @@ public class Hashtable<K, V> {
         if (bucket == null) {
             bucket = new DoublyLinkedList<>(new HashtableEntry<>(key, value));
             buckets.set(bucketIndex, bucket);
-            return value;
+            return true;
         }
         Iterator<HashtableEntry<K, V>> iterator = bucket.iterator();
 
@@ -106,11 +106,11 @@ public class Hashtable<K, V> {
                 continue;
             }
             if (existing.getValue().equals(value)) {
-                return value;
+                return true;
             }
 
         }
-        bucket.add();
+        bucket.add(new HashtableEntry<>(key, value));
         return true;
     }
 

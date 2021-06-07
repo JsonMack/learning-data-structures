@@ -103,25 +103,20 @@ public class DoublyLinkedList<T> implements Iterable<T> {
      * Compares the current nodes value against the parameter, and seeks to the next
      * node, if not null, comparing values again. This continues until next is null.
      *
-     * @param current
+     * @param node
      *            the current node we're comparing the value against. this may be null.
      * @param value
      *            the value we're seeking for, to check if it exists.
      * @return the node if it can be found, or null if it cannot.
      */
-    private DoublyLinkedNode<T> find(DoublyLinkedNode<T> current, T value) {
-        if (current == null) {
+    private DoublyLinkedNode<T> find(DoublyLinkedNode<T> node, T value) {
+        if (node == null) {
             return null;
         }
-        DoublyLinkedNode<T> next = current.next();
-
-        if (next == null) {
-            return null;
+        if (node.value() == value) {
+            return node;
         }
-        if (next.value() == value) {
-            return current;
-        }
-        return find(current.next(), value);
+        return find(node.next(), value);
     }
 
     public int getSize() {

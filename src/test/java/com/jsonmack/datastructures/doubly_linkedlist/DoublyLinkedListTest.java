@@ -72,6 +72,16 @@ class DoublyLinkedListTest {
         Assertions.assertNotNull(iterator.previous());
     }
 
+    @Test
+    public void assertContains() {
+        Assertions.assertTrue(new DoublyLinkedList<>(1).contains(1));
+    }
+
+    @Test
+    public void assertRemove() {
+        Assertions.assertTrue(new DoublyLinkedList<>(1).remove(1));
+    }
+
     private DoublyLinkedList<Integer> createFromRange(int fromInclusive, int toExclusive) {
         DoublyLinkedList<Integer> doublyLinkedList = new DoublyLinkedList<>();
 
