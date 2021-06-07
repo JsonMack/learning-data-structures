@@ -60,6 +60,34 @@ public class DoublyLinkedList<T> implements Iterable<T> {
     }
 
     /**
+     * Removes the value from the linked list by stiching together the previous node, if any,
+     * and the next node, if any. This effectively seek for the node, and rips it out of the
+     * doubly linked list.
+     *
+     * @param value
+     *            the value to remove, which may not exist.
+     * @return true if the value can be removed, or false if the value doesn't exist.
+     */
+    public boolean remove(T value) {
+        DoublyLinkedNode<T> node = find(head, value);
+
+        if (node == null) {
+            return false;
+        }
+        DoublyLinkedNode<T> previous = node.previous();
+
+        DoublyLinkedNode<T> next = node.next();
+
+        if (previous != null) {
+            previous.setNext(next);
+        }
+        if (next != null) {
+            next.setPrevious(previous);
+        }
+        return true;
+    }
+
+    /**
      * Determines if the value can be found anywhere in the list, starting at the head
      * node.
      *
@@ -94,10 +122,6 @@ public class DoublyLinkedList<T> implements Iterable<T> {
             return current;
         }
         return find(current.next(), value);
-    }
-
-    public void remove(T value) {
-
     }
 
     public int getSize() {
