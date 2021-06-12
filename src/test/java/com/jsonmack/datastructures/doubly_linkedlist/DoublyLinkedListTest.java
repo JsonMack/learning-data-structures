@@ -107,6 +107,36 @@ class DoublyLinkedListTest {
         Assertions.assertEquals(2, list.getSize());
     }
 
+    @Test
+    public void assertIteratorRemoveSingle() {
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>(0);
+
+        ListIterator<Integer> iterator = list.iterator();
+
+        while (iterator.hasNext()) {
+            iterator.remove();
+        }
+        Assertions.assertEquals(0, list.getSize());
+        Assertions.assertNull(list.getHead());
+        Assertions.assertNull(list.getTail());
+    }
+
+    @Test
+    public void assertIteratorRemoveTwo() {
+        DoublyLinkedList<Integer> list = new DoublyLinkedList<>(0);
+
+        list.add(1);
+
+        ListIterator<Integer> iterator = list.iterator();
+
+        while (iterator.hasNext()) {
+            iterator.remove();
+        }
+        Assertions.assertEquals(0, list.getSize());
+        Assertions.assertNull(list.getHead());
+        Assertions.assertNull(list.getTail());
+    }
+
     private DoublyLinkedList<Integer> createFromRange(int fromInclusive, int toExclusive) {
         DoublyLinkedList<Integer> doublyLinkedList = new DoublyLinkedList<>();
 

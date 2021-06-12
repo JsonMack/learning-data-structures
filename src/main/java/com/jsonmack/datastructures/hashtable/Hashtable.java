@@ -5,6 +5,7 @@ import com.jsonmack.datastructures.doubly_linkedlist.DoublyLinkedList;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * This structure stores key-value pairs by associating the key to a given bucket. The bucket
@@ -91,7 +92,7 @@ public class Hashtable<K, V> {
             buckets.set(bucketIndex, bucket);
             return true;
         }
-        Iterator<HashtableEntry<K, V>> iterator = bucket.iterator();
+        ListIterator<HashtableEntry<K, V>> iterator = bucket.iterator();
 
         while (iterator.hasNext()) {
             HashtableEntry<K, V> entry = iterator.next();
@@ -99,16 +100,11 @@ public class Hashtable<K, V> {
             if (!entry.getKey().equals(key)) {
                 continue;
             }
-
-        }
-        for (HashtableEntry<K, V> existing : bucket) {
-            if (!existing.getKey().equals(key)) {
-                continue;
-            }
-            if (existing.getValue().equals(value)) {
+            if (entry.getValue().equals(value)) {
                 return true;
             }
-
+            iterator.remove();
+            break;
         }
         bucket.add(new HashtableEntry<>(key, value));
         return true;

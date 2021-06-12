@@ -147,6 +147,14 @@ public class DoublyLinkedList<T> implements Iterable<T> {
         return size;
     }
 
+    public T getHead() {
+        return head == null ? null : head.value();
+    }
+
+    public T getTail() {
+        return tail == null ? null : tail.value();
+    }
+
     @Override
     public ListIterator<T> iterator() {
         return new DoublyLinkedListIterator(head, size);
@@ -214,9 +222,11 @@ public class DoublyLinkedList<T> implements Iterable<T> {
             if (node == null) {
                 throw new NoSuchElementException();
             }
-            index--;
-            removeNode(node);
-            //TODO properly implement remove
+            DoublyLinkedNode<T> remove = node;
+
+            node = node.next();
+            index++;
+            removeNode(remove);
         }
 
         @Override
