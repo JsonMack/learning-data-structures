@@ -166,6 +166,8 @@ public class DoublyLinkedList<T> implements Iterable<T> {
 
         private DoublyLinkedNode<T> node;
 
+        private DoublyLinkedNode<T> previousReference;
+
         private int index;
 
         private DoublyLinkedListIterator(DoublyLinkedNode<T> node, int size) {
@@ -185,6 +187,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
             }
             DoublyLinkedNode<T> next = node;
 
+            previousReference = node;
             node = node.next();
             index++;
             return next.value();
@@ -202,6 +205,7 @@ public class DoublyLinkedList<T> implements Iterable<T> {
             }
             DoublyLinkedNode<T> previous = node;
 
+            previousReference = node;
             node = node.previous();
             index--;
             return previous.value();
@@ -217,16 +221,16 @@ public class DoublyLinkedList<T> implements Iterable<T> {
             return Math.max(-1, index - 1);
         }
 
+        //TODO remove logical issue
+        //TODO  on next/prev, node has already changed. Need to account for current.
+        //TODO  maybe store current as node removed or?
         @Override
         public void remove() {
-            if (node == null) {
-                throw new NoSuchElementException();
+            if (previousReference == null) {
+                throw new IllegalStateException();
             }
-            DoublyLinkedNode<T> remove = node;
-
-            node = node.next();
-            index++;
-            removeNode(remove);
+            removeNode(previousReference);
+            previousReference = null;
         }
 
         @Override

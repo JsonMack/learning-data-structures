@@ -17,6 +17,8 @@
                 <configuration>
                     <target>11</target>
                     <source>11</source>
+                    <testSource>11</testSource>
+                    <testTarget>11</testTarget>
                 </configuration>
             </plugin>
             <plugin>

@@ -3,9 +3,7 @@ package com.jsonmack.datastructures.hashtable;
 import com.jsonmack.datastructures.support.FixedSizeList;
 import com.jsonmack.datastructures.doubly_linkedlist.DoublyLinkedList;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * This structure stores key-value pairs by associating the key to a given bucket. The bucket
@@ -41,6 +39,11 @@ public class Hashtable<K, V> {
     private final int bucketSize;
 
     /**
+     * The number of unique key and value associations in this hashtable.
+     */
+    private int elements;
+
+    /**
      * Creates a new hash table with a given bucket size equal to that of the passed parameter. This determines
      * how many individual buckets there are.
      *
@@ -73,7 +76,7 @@ public class Hashtable<K, V> {
     //     we can ensure that HashtableEntry can remain immutable, allowing the existing value
     //     to be updated by replacing the entire entry instead of mutating it. This is more expensive
     //     with memory and performance, but the tradeoff is immutability so i'll take that loss.
-    public boolean put(K key, V value) {
+    public V put(K key, V value) {
         if (key == null) {
             throw new IllegalArgumentException("Key is null.");
         }
@@ -90,7 +93,8 @@ public class Hashtable<K, V> {
         if (bucket == null) {
             bucket = new DoublyLinkedList<>(new HashtableEntry<>(key, value));
             buckets.set(bucketIndex, bucket);
-            return true;
+            elements++;
+            return value;
         }
         ListIterator<HashtableEntry<K, V>> iterator = bucket.iterator();
 
@@ -101,13 +105,14 @@ public class Hashtable<K, V> {
                 continue;
             }
             if (entry.getValue().equals(value)) {
-                return true;
+                return entry.getValue();
             }
             iterator.remove();
             break;
         }
+        elements++;
         bucket.add(new HashtableEntry<>(key, value));
-        return true;
+        return value;
     }
 
     /**
@@ -136,6 +141,15 @@ public class Hashtable<K, V> {
             }
         }
         return null;
+    }
+
+    /**
+     * The total number of elements or unique key value pairs in this hashtable.
+     *
+     * @return the total elements in this hashtable.
+     */
+    public int getSize() {
+        return elements;
     }
 
     /**

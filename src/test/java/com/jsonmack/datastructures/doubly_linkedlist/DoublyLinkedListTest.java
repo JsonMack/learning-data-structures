@@ -114,6 +114,7 @@ class DoublyLinkedListTest {
         ListIterator<Integer> iterator = list.iterator();
 
         while (iterator.hasNext()) {
+            iterator.next();
             iterator.remove();
         }
         Assertions.assertEquals(0, list.getSize());
@@ -130,6 +131,7 @@ class DoublyLinkedListTest {
         ListIterator<Integer> iterator = list.iterator();
 
         while (iterator.hasNext()) {
+            iterator.next();
             iterator.remove();
         }
         Assertions.assertEquals(0, list.getSize());

@@ -9,19 +9,45 @@ import org.junit.jupiter.api.Test;
 public class HashtableTest {
 
     @Test
-    public void assertPutDuplicateFailed() {
+    public void assertPutSuccessful() {
         Hashtable<Integer, Integer> table = new Hashtable<>();
 
-        Assertions.assertTrue(table.put(1, 1));
-        Assertions.assertFalse(table.put(1, 1));
+        Assertions.assertNotNull(table.put(1, 1));
+        Assertions.assertEquals(1, table.getSize());
+    }
+
+    @Test
+    public void assertPutDuplicateReturnsExisting() {
+        Hashtable<Integer, Object> table = new Hashtable<>();
+
+        Object value = new Object();
+
+        Assertions.assertEquals(value, table.put(1, value));
+        Assertions.assertEquals(value, table.put(1, value));
+        Assertions.assertEquals(1,  table.getSize());
     }
 
     @Test
     public void assertPutUniqueSuccessful() {
         Hashtable<Integer, Integer> table = new Hashtable<>();
 
-        Assertions.assertTrue(table.put(1, 1));
-        Assertions.assertTrue(table.put(2, 1));
+        Assertions.assertNotNull(table.put(1, 1));
+        Assertions.assertNotNull(table.put(2, 1));
+        Assertions.assertEquals(2, table.getSize());
+    }
+
+    @Test
+    public void assertPutUpdate() {
+        Hashtable<Integer, Object> table = new Hashtable<>();
+
+        int key = 1;
+
+        Object first = new Object();
+
+        Object updated = new Object();
+
+        Assertions.assertEquals(first, table.put(key, first));
+        Assertions.assertEquals(updated, table.put(key, updated));
     }
 
     @Test
