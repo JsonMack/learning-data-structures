@@ -7,7 +7,7 @@ A simple repository that doesn't serve any purpose other than a way for me to tr
 | Singly Linked List        | [SinglyLinkedList][0]  | [SinglyLinkedListTest][1]
 | Doubly Linked List        | [DoublyLinkedList][2]  | [DoublyLinkedListTest][3]
 | Binary Tree               | [BinaryTree][4]        | [BinaryTreeTest][5]
-
+| Hashtable                 | [Hashtable][6]         | [HashtableTest][7]
 
 [0]: src/main/java/com/jsonmack/datastructures/singly_linkedlist/SinglyLinkedList.java
 [1]: src/test/java/com/jsonmack/datastructures/singly_linkedlist/SinglyLinkedListTest.java
@@ -15,3 +15,5 @@ A simple repository that doesn't serve any purpose other than a way for me to tr
 [3]: src/test/java/com/jsonmack/datastructures/doubly_linkedlist/DoublyLinkedListTest.java
 [4]: src/main/java/com/jsonmack/datastructures/binary_tree/BinaryTree.java
 [5]: src/test/java/com/jsonmack/datastructures/binary_tree/BinaryTreeTest.java
+[6]: src/main/java/com/jsonmack/datastructures/hashtable/Hashtable.java
+[7]: src/test/java/com/jsonmack/datastructures/hashtable/HashtableTest.java
